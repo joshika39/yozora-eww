@@ -41,25 +41,25 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    {music != "" ? "🎵 ${music}" : ""}))
+    {music != "" ? "NOW: ${music}" : ""}))
 
 (defwidget infolabel [label value]
   (box :orientation "h"
        :halign "end"
        :space-evenly false
-    (box (label :text value))))
+    (box :space-evenly false (label :text label) (label :text value))))
 
 
 (defwidget sidestuff []
   (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
     (infolabel
-        :label "📅 "
-        :value time )
+        :label ""
+        :value "DATE: ${time}" )
     (infolabel 
-        :label "🔊 "
+        :label "VOL:"
         :value {"${volume}%"})
     (infolabel 
-        :label "K: "
+        :label "LANG:"
         :value keyboard)
     ))
 
