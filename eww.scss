@@ -1,5 +1,5 @@
-$background: #1D001A;
-$foreground: #FFC373;
+$background: #000746;
+$foreground: #06F3EB;
 
 * {
   all: unset;
@@ -8,12 +8,21 @@ $foreground: #FFC373;
 .bar {
   background: $background;
   color: $foreground;
-  padding: 10px;
-  margin: 15px;
+  border-radius: 5px;
+  font-family: 'SAO UI';
+  font-size: 20px;
 }
 
-.sidestuff {
-  margin-left: 55px;
-  padding-left: 50px;
+.bar-content {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sidestuff > * {
+  margin-right: 10px;
+}
+
+.sidestuff > *:last-child {
+  margin-right: 0px;
 }
 

@@ -2,6 +2,7 @@
 
 (defpoll time :interval "1s" `date '+%Y年%m月%d日 %H時%M分 %S秒'`)
 (deflisten volume :initial "volume" `./scripts/get-volume.sh`)
+(defpoll keyboard :interval "1s" :initial "keys" `hyprctl devices -j | jq -r '.keyboards[] | .active_keymap' | tail -n1 | cut -c1-2 | tr 'a-z' 'A-Z'`)
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
 (defpoll battery :interval "15s" "./scripts/battery.sh --bat")
@@ -12,6 +13,7 @@
           :orientation "h" 
           :space-evenly false
           :spacing 15
+          :class "battery"
       (circular-progress :value {battery?:0}
                 :thickness 9
             (label :text ""
@@ -46,10 +48,14 @@
     (infolabel 
         :label "🔊 "
         :value {"${volume}%"})
+    (infolabel 
+        :label "K: "
+        :value keyboard)
     ))
 
 (defwidget bar []
   (centerbox :orientation "h"
+      :class "bar-content"
     (battery)
     (music)
     (sidestuff)))
@@ -60,7 +66,7 @@
   :exclusive true
 
   :geometry (geometry :x "0%"
-                      :y "0%"
+                      :y "6px"
                       :width "90%"
                       :height "30px"
                       :anchor "top center")
