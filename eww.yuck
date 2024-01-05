@@ -9,12 +9,22 @@
 (defpoll battery_status :interval "1m" "./scripts/battery.sh --bat-st")
 
 (defwidget battery []
-      (box 
+  (box
+    :orientation "h"
+    :space-evenly false
+    :spacing {battery == "" ? 0 : 15}
+
+    (label :text {battery == "" ? "電源回路" : "電池"}
+          :limit-width 22
+          :wrap false)
+    (box 
           :orientation "h" 
           :space-evenly false
           :spacing 15
+          :visible {battery != ""}
           :class "battery"
-      (circular-progress :value {battery?:0}
+      (circular-progress 
+                :value {battery?:0}
                 :thickness 9
             (label :text ""
                 :limit-width 2
@@ -24,7 +34,7 @@
                 :wrap false)
             (label :text "${battery_status}"
                 :limit-width 22
-                :wrap false)))
+                :wrap false))))
 
 (defwidget music []
   (box :class "music"
@@ -55,10 +65,10 @@
 
 (defwidget bar []
   (centerbox :orientation "h"
-      :class "bar-content"
-    (battery)
-    (music)
-    (sidestuff)))
+             :class "bar-content"
+             (battery)  
+             (music)
+             (sidestuff)))
 
 (defwindow bar
   :monitor 0
