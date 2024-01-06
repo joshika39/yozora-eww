@@ -2,7 +2,7 @@
 
 (defpoll time :interval "1s" `date '+%Y年%m月%d日 %H時%M分 %S秒'`)
 (deflisten volume :initial "volume" `./scripts/get-volume.sh`)
-(defpoll keyboard :interval "1s" :initial "keys" `hyprctl devices -j | jq -r '.keyboards[] | .active_keymap' | tail -n1 | cut -c1-2 | tr 'a-z' 'A-Z'`)
+(defpoll keyboard :interval "1s" :initial "keys" `./scripts/get-keyboard.sh`)
 (deflisten music :initial "" "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true")
 
 (defpoll battery :interval "15s" "./scripts/battery.sh --bat")
